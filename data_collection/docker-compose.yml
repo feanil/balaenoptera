@@ -3,8 +3,17 @@ services:
     image: "tutum/influxdb"
     volumes:
       - "/home/rancher/influxdb/data:/data"
+    links:
+      - grafana
+    ports:
+      - 8083:8083
+      - 8086:8086
   grafana:
     image: "grafana/grafana"
     volumes:
       - "/home/rancher/grafana/lib/grafana:/var/lib/grafana"
       - "/home/rancher/grafana/etc/grafana:/etc/grafana"
+    links:
+      - influxdb
+    ports:
+      - 80:3000
