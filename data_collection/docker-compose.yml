@@ -1,0 +1,10 @@
+services:
+  influxdb:
+    image: "tutum/influxdb"
+    volumes:
+      - "/home/rancher/influxdb/data:/data"
+  grafana:
+    image: "grafana/grafana"
+    volumes:
+      - "/home/rancher/grafana/lib/grafana:/var/lib/grafana"
+      - "/home/rancher/grafana/etc/grafana:/etc/grafana"
