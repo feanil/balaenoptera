@@ -19,4 +19,6 @@ services:
     image: "feanil/harpy"
     links:
       - influxdb
+    env_file:
+      - ../harpy/env
 

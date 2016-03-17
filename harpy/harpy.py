@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
   NEST_USERNAME = os.getenv("NEST_USERNAME")
   NEST_PASSWORD = os.getenv("NEST_PASSWORD")
-  INFLUX_HOST = os.getenv("INFLUX_HOST", "influx")
+  INFLUX_HOST = os.getenv("INFLUX_HOST", "influxdb")
   INFLUX_PORT = int(os.getenv("INFLUX_PORT", "8086"))
   INFLUX_USERNAME = os.getenv("INFLUX_USERNAME")
   INFLUX_PASSWORD = os.getenv("INFLUX_PASSWORD")
