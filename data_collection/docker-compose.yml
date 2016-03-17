@@ -11,7 +11,6 @@ services:
     image: "grafana/grafana"
     volumes:
       - "/home/rancher/grafana/lib/grafana:/var/lib/grafana"
-      - "/home/rancher/grafana/etc/grafana:/etc/grafana"
     links:
       - influxdb
     ports:
