@@ -16,3 +16,8 @@ services:
       - influxdb
     ports:
       - 3000:3000
+  harpy:
+    image: "feanil/harpy"
+    links:
+      - influxdb
+
