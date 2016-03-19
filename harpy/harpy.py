@@ -64,6 +64,9 @@ if __name__ == "__main__":
   data_emitter = InfluxNestEmitter(nest_client, influx_client)
 
   while True:
-    data_emitter.emit_event()
-    print("Event Emitted.")
-    time.sleep(60)
+    try:
+      data_emitter.emit_event()
+      print("Event Emitted.")
+      time.sleep(60)
+    except Exception as e:
+      print("Failed to emit. {}".format(e.message))
