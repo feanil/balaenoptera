@@ -38,6 +38,25 @@ class InfluxNestEmitter(object):
 
     self.influx.write_points(json_body)
 
+def get_nest_client(username, password):
+  nest_client = None
+  while nest_client is None:
+    try:
+      nest_client = nest.Nest(username, password)
+    except Exception as e:
+      print("Failed to initialize nest client. {}".format(e))
+      time.sleep(1)
+  return nest_client
+
+def get_influx_client(host, port, username, password, db_name):
+  influx_client = None
+  while influx_client is None:
+    try:
+      influx_client = InfluxDBClient(host, port, username, password, db_name)
+    except Exception as e:
+      print("Failed to connect to influx. {}".format(e))
+      time.sleep(1)
+  return influx_client
 
 if __name__ == "__main__":
   import os
@@ -51,7 +70,7 @@ if __name__ == "__main__":
   INFLUX_PASSWORD = os.getenv("INFLUX_PASSWORD")
   INFLUX_DB_NAME = os.getenv("INFLUX_DB_NAME", "metrics")
 
-  influx_client = InfluxDBClient(
+  influx_client = get_influx_client(
     INFLUX_HOST,
     INFLUX_PORT,
     INFLUX_USERNAME,
@@ -59,8 +78,7 @@ if __name__ == "__main__":
     INFLUX_DB_NAME,
     )
 
-  nest_client = nest.Nest(NEST_USERNAME, NEST_PASSWORD)
-
+  nest_client = get_nest_client(NEST_USERNAME, NEST_PASSWORD)
   data_emitter = InfluxNestEmitter(nest_client, influx_client)
 
   while True:
@@ -69,4 +87,5 @@ if __name__ == "__main__":
       print("Event Emitted.")
       time.sleep(60)
     except Exception as e:
-      print("Failed to emit. {}".format(e.message))
+      print("Failed to emit. {}".format(e))
+      time.sleep(1)
